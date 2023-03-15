@@ -1,0 +1,21 @@
+service hqreadsvc /vendor/bin/hqread_vndr atcmd
+    class main
+    user root
+    disabled
+    oneshot
+    group root system
+
+on property:sys.hqread.trigger=1
+    start hqreadsvc
+
+# C3T code for C3T-80 by qiutong at 22.12.21 start
+on property:sys.sarcali.trigger=1
+    start sarcalisvc
+
+service sarcalisvc /vendor/bin/nusensors -w calibration -t s
+    class main
+    user root
+    disabled
+    oneshot
+    group root system
+# C3T code for C3T-80 by qiutong at 22.12.21 end
